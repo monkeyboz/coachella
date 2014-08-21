@@ -1,0 +1,39 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:navigation.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<div id="fb-root"></div>
+	<script src="http://connect.facebook.net/en_US/all.js"></script>
+	<script>
+		FB.init({ 
+			appId:'193167388116', cookie:true, 
+			status:true, xfbml:true 
+		});
+		FB.Event.subscribe('auth.login', function(response) {
+			alert('testing');
+	        window.location.reload();
+	    });
+	</script>
+	{% if facebook is defined %}
+		{{ facebook.name }}
+		<form method="post" {{ form_enctype(form) }}>
+		    {{ form_widget(form) }}
+		    <input type="submit" />
+		</form>
+	{% else %}
+		<fb:login-button>Login with Facebook</fb:login-button>
+		<form method="post" {{ form_enctype(form) }}>
+		    {{ form_widget(form) }}
+		    <input type="submit" />
+		</form>
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:usernav.html.twig' %}
+	<div class="clear"></div>
+{% endblock %}
+
+{% block adminnav %}
+	{% include 'CoachellaUserBundle:Default:adminnav.html.twig' %}
+	<div class="clear"></div>
+{% endblock %}
+
+{% block body %}
+	<h2>Show Artists</h2>
+	<h3><a href="{{ path('_showStages') }}">Show Stages</a></h3>
+	{% for item in artists %}
+		<div style="padding: 5px; background: #efefef; margin-top: 5px;">
+			{{ item.name }}
+			<div style="float: right;">
+				<a href="{{ path('_editArtists', { 'id':item.id }) }}">Edit</a>
+				<a href="{{ path('_deleteArtists', { 'id':item.id } ) }}">Delete</a>
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

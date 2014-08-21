@@ -1,0 +1,255 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:navigation.html.twig' %}
+{% endblock %}
+
+{% block adminnav %}
+<div style="clear: both; padding: 10px; float: right; font-size: 10px; position: fixed; right: 10px;">
+	<div id="errors"></div>
+	<div>
+		<label>Name</label><input type="text" name="name"/>
+	</div>
+	<div>
+		<lable>Menu Settings</label>
+			<select name="menu">
+				<option>-SELECT-</option>
+				<option value="0">Main Navigation</option>
+				{% for item in pages %}
+				<option value="{{ item.id }}">{{ item.name }}</option>
+				{% endfor %}
+			</select>
+	</div>
+	<div class="widget layout" ref="single">Single Layout</div>
+	<div class="widget layout" ref="double">Double Layout</div>
+	<div class="widget layout" ref="triple">Triple Layout</div>
+	<div class="widget classes" ref="CoachellaUserBundle|Mylineup|getTopArtists^"><a href="{{ path('_topArtists') }}">Add Top Artists</a></div>
+	<div class="widget classes edit" ref="CoachellaUserBundle|CMS|imageDrop^">Image Module</div>
+	<div class="widget classes edit" ref="CoachellaUserBundle|CMS|videoDrop^">Video Module</div>
+	<div class="widget classes edit" ref="CoachellaUserBundle|CMS|textDrop^">Text Module</div>
+	<div style="clear: both;"></div>
+	<input type="submit" name="Submit" class="submitWidget"/>
+</div>
+{% endblock %}
+
+{% block body %}
+<div style="font-size: 12px; width: 700px; margin: 0px auto; float: left;">
+	<!-- start of area where we drag and drop widgets -->
+	<ul id="test" style="min-height: 200px;"></ul>
+	<!-- end of widget drop area -->
+	<div style="clear: both;"></div>
+</div>
+<ul id="myMenu" class="contextMenu">
+    <li class="editItem"><a href="#edit">Edit</a></li>
+    <li class="deleteItem"><a href="#delete">Delete</a></li>
+</ul>
+</div>
+{% endblock %}
+
+{% block footer %}
+	{% include 'CoachellaUserBundle:Default:footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+	<style>
+		#myMenu{
+			position: absolute;
+			display: none;
+			padding: 10px;
+			background: #fff;
+		}
+		#myMenu li{
+			float: left;
+			font-size: 10px;
+			margin-right: 10px;
+		}
+		.addEdit{
+			display: none;
+		}
+		.holder{
+			padding: 8px;
+			background: #fff;
+		}
+		.holderDub{
+			float:left; 
+			width: 313px;
+			margin: 10px;
+		}
+		.holderSing{
+			float:left; 
+			width: 662px;
+			margin: 10px;
+		}
+		.holderTrip{
+			float:left;
+			width: 197px;
+			margin: 10px;
+		}
+		.add{
+			display: none;
+		}
+		.droppableHover{
+			background:#CCFFFF;
+		}
+		.widget{
+			padding: 10px;
+			margin-left: 5px;
+		}
+		.widget a{
+			text-decoration: none;
+			color: #000;
+		}
+	</style>
+	<script src="{{ asset('bundles/coachella/js/jquery-1.3.2.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/functions.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/jquery-1.3.2.js') }}"></script>
+	
+	<script type="text/javascript" src="{{ asset('bundles/coachella/js/jquery.contextMenu.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/coachella/js/jquery-1.2.6.min.js') }}"></script>
+	
+	<script type="text/javascript" src="{{ asset('bundles/coachella/js/upload/swfupload.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/coachella/js/upload/swfupload.queue.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/coachella/js/upload/fileprogress.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/coachella/js/upload/handlers.js') }}"></script>
+	
+	<script src="{{ asset('bundles/coachella/js/jquery-1.6.2.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/admin/buttonfunctions.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.core.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.widget.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.mouse.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.draggable.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.droppable.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.sortable.js') }}"></script>
+	<script>
+	var dev = '{{ id }}';
+	var widgetCount = {{ widgetId }};
+	$('.submitWidget').click(function(){
+		var add = '{"testing":[';
+		var count = 0;
+		$('#test').find('.layoutTest').each(function(){
+			add += '{"layout":"layout'+count+'", "value":';
+			var layout = $(this);
+			add += '[';
+			layout.find('.holder').each(function(){
+				$(this).find('.add').each(function(){
+					add += '{"widget":"'+$(this).html()+'"},';
+				})
+			})
+			add = add.substring(0, add.length-1);
+			add += '],';
+			add = add.substring(0, add.length-1);
+			add += '},';
+			++count;
+		});
+		add = add.substring(0, add.length-1);
+		add += ']}';
+		var num = 0;
+		if($('input[name=name]').val() == ''){
+			$('#errors').html('Please Enter Name for this layout');
+		} else {
+			$.ajax({
+				url: '{{ path("_updateCMS") }}',
+				type: 'POST',
+				data: 'data='+add+'&name='+$('input[name=name]').val(),
+				dataType: 'json',
+				success: function(html){
+					var location = "/app_dev.php/getLayout/"+html;
+					window.location = location;
+				},
+			});
+		}
+		return false;
+	})
+	$('.widget').draggable({
+		helper: "clone",
+	});
+	var layouts = 0;
+	var hideEditTimeout;
+	$('#test').droppable({ 
+		accept: '.layout',
+		hoverClass: "droppableHover",
+		drop: function(event, ui){
+			switch(ui.draggable.attr('ref')){
+				case 'single':
+					$(this).append('<li class="layoutTest" ref="'+layouts+'"><div class="holder holderSing"></div><div style="clear: both;"></div></li>');
+					break;
+				case 'double':
+					$(this).append('<li class="layoutTest" ref="'+layouts+'"><div class="holder holderDub"></div><div class="holder holderDub"></div><div style="clear: both;"></div></li>');
+					break;
+				case 'triple':
+					$(this).append('<li class="layoutTest" ref="'+layouts+'"><div class="holder holderTrip"></div><div class="holder holderTrip"></div><div class="holder holderTrip"></div><div style="clear: both;"></div></li>');	
+					break;
+			}
+			$('.layoutTest .holder').droppable({
+				accept:	'.widget',
+				hoverClass: "droppableHover",
+				drop:	function(event, ui){
+					var droppable = $(this);
+					if(ui.draggable.getClass('edit')){
+						var data = 'data='+ui.draggable.attr('ref')+'id,'+widgetCount;
+						++widgetCount;
+						$.ajax({
+							url: '{{ path("_dropEdit") }}',
+							data: data,
+							success: function(html){
+								droppable.append('<div class="widgetDisplay'+widgetCount+' widgetDisplay">'+html+'<div class="addEdit">'+ui.draggable.attr('ref')+'id,'+widgetCount+'</div></div>');
+								$('.widgetDisplay').createHover();
+							}
+						})
+					} else {
+						$.ajax({
+							url: ui.draggable.find('a').attr('href'),
+							success: function(html){
+								droppable.append(html);
+							}
+						})
+						droppable.append('<div class="add">'+ui.draggable.attr('ref')+'</div>');
+					}
+				}
+			})
+			++layouts;
+			var id = ui.draggable.attr('ref');
+		}
+	});
+	
+	var currHover = '';
+	$.fn.createHover = function(){
+		$(this).hover(function(){
+			var widgetDisplay = $(this);
+			$('#myMenu').css('top', widgetDisplay.position().top-35).css('left', widgetDisplay.position().left-8).css('display', 'block');
+			currHover = widgetDisplay;
+		},
+		function(){  }
+	);}
+	
+	$('.editItem').click(function(){
+		var link = 'data='+currHover.find('.addEdit').html();
+		$.ajax({
+			url: '{{ path("_dropEdit") }}',
+			data: link,
+			success: function(html){
+				currHover.parent().find('.widgetDisplay').html(html);
+			}
+		})
+	})
+	
+	$('.deleteItem').click(function(){
+		currHover.html('');
+	})
+	
+	$.fn.getClass = function(classCheck){
+		var classList = $(this).attr('class').split(/\s+/);
+		var available = false;
+		for(var i = 0; i < classList.length; ++i){
+			if(classCheck == classList[i]){
+				return true;
+			}
+		}
+		return false;
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link href="{{ asset('/bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+<div>
+	<h1>{{ artist.name }}</h1>
+	<div><img src="/uploads/documents/{{ artist.id}}.jpg" style="width: 100%;"/></div>
+	<h2>Performing at {{ artist.getStage.getName }} Stage - {{ artist.starttime | date('d h:i') }}</h2>
+	<div>{% render 'CoachellaUserBundle:Artists:addArtistsMylineup' with { 'id':artist.id, 'date':artist.starttime | date('Y-m-d') } %}</div>
+	<div class="artistDescription">{{ artist.description }}</div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:usernav.html.twig' %}
+	<div class="clear"></div>
+{% endblock %}
+
+{% block body %}
+	<h2>Edit Artists</h2>
+	<form method="POST" >
+		{{ form_widget(form) }}
+		<input type="submit" />
+	</form>
+{% endblock %}

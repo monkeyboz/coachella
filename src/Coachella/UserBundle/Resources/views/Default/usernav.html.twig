@@ -1,0 +1,7 @@
+{% if not app.request.isXmlHttpRequest %} 
+<div id="navigation">
+	<a href="{{ path('_userpage',{'id':user.id}) }}">MyLineup</a>
+	<a href=""></a>
+	<div class="clear"></div>
+</div>
+{% endif %}

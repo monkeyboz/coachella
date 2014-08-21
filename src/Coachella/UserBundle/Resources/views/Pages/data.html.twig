@@ -1,0 +1,17 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:navigation.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	{% include id %}
+{% endblock %}
+
+{% block footer %}
+	{% include 'CoachellaUserBundle:Default:footer.html.twig' %}
+{% endblock %}

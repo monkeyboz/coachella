@@ -1,0 +1,30 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% render 'CoachellaUserBundle:Default:login' %}
+{% endblock %}
+
+{% block body %}
+	<h2>Create Artists</h2>
+	<form method="POST" {{ form_enctype(attachment) }}>
+		{{ form_widget(form) }}
+		{{ form_widget(attachment) }}
+		<input type="submit" />
+	</form>
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('/bundles/coachella/js/ckeditor/ckeditor.js') }}"></script>
+	<script>
+		CKEDITOR.replace( 'form_description',
+	{
+		extraPlugins : 'docprops'
+	});
+	</script>
+{% endblock %}

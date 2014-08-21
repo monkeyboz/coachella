@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Coachella - {% block title %}{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+    	<div style="background: url({{ asset('bundles/coachella/images/headertop.png') }}) center no-repeat; height: 195px; width: 1200px; margin: 0px auto;">
+    		<div style="padding-top: 150px; float: right; margin-right: 80px;">
+    			<form action="{{ path('_search') }}" method="POST" style="background: #53888c; border: 1px solid #a2c2c4; float: left; margin-right: 10px;">
+    				<input type="submit" name="submit" value="" style="border: none; background: #53888c; height: 24px; width: 24px;" /><input type="text" name="search" value="search" style="border: none; font-size: 10px; color: #b0cbcc; background: #548a8d;" />
+    			</form>
+    			<img src="{{ asset('bundles/coachella/images/facebook.png') }}" />
+    			<img src="{{ asset('bundles/coachella/images/twitter.png') }}" />
+    			<img src="{{ asset('bundles/coachella/images/youtube.png') }}" />
+    			<img src="{{ asset('bundles/coachella/images/digg.png') }}" />
+    			<img src="{{ asset('bundles/coachella/images/rss.png') }}" />
+    		</div>
+    	</div>
+    	<div id="adminNav">
+    		{% block adminnav %}{% endblock %}
+    	</div>
+    	<div class="content">
+    		{% block navigation %}{% endblock %}
+        	{% block body %}{% endblock %}
+        	{% block javascripts %}{% endblock %}
+        </div>
+        {% block footer %}{% endblock %}
+        <script>
+    		$('input[name=search]').focus(function(){
+    			$(this).val('');
+    		})
+    		$('input[name=search]').blur(function(){
+    			$(this).val('search');
+    		})
+    	</script>
+    </body>
+</html>

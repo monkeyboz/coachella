@@ -1,0 +1,6 @@
+<div class="artistsMylineup">
+	{% for item in artists %}
+		<a href="{{ path('_addToMylineup', {'id':item.id, 'date':date })}}">{{ item.name }}</a>
+	{% endfor %}
+	<div class="clear"></div>
+</div>

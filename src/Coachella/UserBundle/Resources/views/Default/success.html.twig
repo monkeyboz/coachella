@@ -1,0 +1,14 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Successful{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+	Hello 
+	{% if name %}
+		{{ name }}
+	{% endif %}
+{% endblock %}

@@ -1,0 +1,171 @@
+_welcome:
+    pattern:  /
+    defaults: { _controller: AcmeDemoBundle:Welcome:index }
+    
+_demo_secured:
+    resource: "@AcmeDemoBundle/Controller/SecuredController.php"
+    type:     annotation
+    
+_demo:
+    resource: "@AcmeDemoBundle/Controller/DemoController.php"
+    type:     annotation
+    prefix:   /demo
+    
+_search:
+    pattern:  /search
+    defaults: { _controller: CoachellaUserBundle:Default:search }
+    
+_coachellamylineup:
+    pattern:  /coachellamylineup/
+    defaults: { _controller: CoachellaUserBundle:MyLineup:coachellamylineup }
+    
+_showText:
+    pattern:  /showText/{id}
+    defaults: { _controller: CoachellaUserBundle:CMS:showText }
+    
+_dropEdit:
+    pattern:  /dropEdit
+    defaults: { _controller: CoachellaUserBundle:CMS:dropEdit }
+
+_imageDrop:
+    pattern:  /imageDrop
+    defaults: { _controller: CoachellaUserBundle:CMS:imageDrop }
+    
+_imageUpload:
+    pattern:  /imageUpload
+    defaults: { _controller: CoachellaUserBundle:CMS:imageUpload }
+    
+_textDrop:
+    pattern:  /textDrop
+    defaults: { _controller: CoachellaUserBundle:CMS:textDrop }
+    
+_showLayouts:
+    pattern:  /showLayouts
+    defaults: { _controller: CoachellaUserBundle:CMS:showLayouts }
+    
+_getLayout:
+    pattern:  /getLayout/{id}
+    defaults: { _controller: CoachellaUserBundle:CMS:getLayout }
+    
+_createCMS:
+    pattern:  /cms
+    defaults: { _controller: CoachellaUserBundle:CMS:createCMS }
+    
+_updateCMS:
+    pattern:  /updateCMS
+    defaults: { _controller: CoachellaUserBundle:CMS:updateCMS }
+    
+_checkLayout:
+    pattern:  /checkLayout
+    defaults: { _controller: CoachellaUserBundle:CMS:checkLayout }
+    
+_createArtist:
+    pattern:  /createArtist
+    defaults: { _controller: CoachellaUserBundle:Artists:createArtists }
+    
+_deleteArtists:
+    pattern:  /deleteArtists/{id}
+    defaults: { _controller: CoachellaUserBundle:Artists:deleteArtists }
+    
+_artistPage:
+    pattern:  /artistPage/{id}
+    defaults: { _controller: CoachellaUserBundle:Artists:artistPage }
+
+_updateStage:
+    pattern:  /updateStage/{id}/{artist}
+    defaults: { _controller: CoachellaUserBundle:Stages:updateStage }
+
+_signup:
+    pattern:  /signup
+    defaults: { _controller: CoachellaUserBundle:Default:createUser  }
+    
+_topArtists:
+    pattern:  /topArtists
+    defaults: { _controller: CoachellaUserBundle:Mylineup:getTopArtists }
+    
+_addToMylineup:
+    pattern:  /addToMylineup/{id}/{date}
+    defaults: { _controller: CoachellaUserBundle:Mylineup:addToMylineup }
+    
+_checkVB:
+    pattern: /checkVB
+    defaults: { _controller: CoachellaUserBundle:Default:checkVB }
+
+_createMylineup:
+    pattern: /createMylineup/{id}
+    defaults: { _controller: CoachellaUserBundle:Mylineup:createMylineup }
+    
+_removeMylineup:
+    pattern:  /removeMylineup/{id}
+    defaults: { _controller: CoachellaUserBundle:Mylineup:removeMylineup }
+    
+_createStage:
+    pattern:  /createStage
+    defaults: { _controller: CoachellaUserBundle:Stages:createStage }
+    
+_editStage:
+    pattern:  /editStage/{id}
+    defaults: { _controller: CoachellaUserBundle:Stages:editStage }
+    
+_deleteStage:
+    pattern:  /deleteStage/{id}
+    defaults: { _controller: CoachellaUserBundle:Stages:deleteStage }
+    
+_editArtists:
+    pattern:  /editArtists/{id}
+    defaults: { _controller: CoachellaUserBundle:Artists:editArtists }
+    
+_showArtists:
+    pattern:  /showArtists
+    defaults: { _controller: CoachellaUserBundle:Artists:showArtists }
+    
+_createArtists:
+    pattern: /createArtists/{id}
+    defaults: { _controller: CoachellaUserBundle:Stages:createArtists }
+    
+_showStages:
+    pattern: /showStages
+    defaults: { _controller: CoachellaUserBundle:Stages:showStages }
+    
+_userpage:
+    pattern:  /userpage/{id}
+    defaults: { _controller: CoachellaUserBundle:Default:userPage }
+    
+_checkFrontgate:
+    pattern:  /checkFrontgate
+    defaults: { _controller: CoachellaUserBundle:Default:checkFrontgate }
+    
+_createMylineup:
+    pattern:  /createMylineup/{id}
+    defaults: { _controller: CoachellaUserBundle:Mylineup:createMylineup }
+    
+_mylineup:
+    pattern: /mylineup/{id}
+    defaults: { _controller: CoachellaUserBundle:Mylineup:mylineup }
+    
+_logout:
+    pattern:  /logout
+    defaults: { _controller: CoachellaUserBundle:Default:logout }
+    
+_login:
+    pattern:  /login
+    defaults: { _controller: CoachellaUserBundle:Default:loginUser  }
+    
+_assetic:
+    resource: .
+    type:     assetic
+    
+_wdt:
+    resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
+    prefix:   /_wdt
+    
+_profiler:
+    resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
+    prefix:   /_profiler
+
+_configurator:
+    resource: "@SensioDistributionBundle/Resources/config/routing/webconfigurator.xml"
+    prefix:   /_configurator
+
+_main:
+    resource: routing.yml

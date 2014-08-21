@@ -1,0 +1,6 @@
+<h2>Top Artists</h2>
+{% for i in artists %}
+	<div style="text-align: left; border: #efefef solid 1px; padding: 10px;">
+		<a href="{{ path('_artistPage', {'id':i.artist.getId}) }}">{{ i.artist.getName }}</a><div style="float: right;">Total: {{ i.count }}</div>
+	</div>
+{% endfor %}

@@ -1,0 +1,23 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:navigation.html.twig' %}
+{% endblock %}
+
+{% block body %}
+	<div>Search Term: {{ searchterm }}</div>
+	{% for key,item in search %}
+		<h2>{{ key }}</h2>
+		{% for term in item %}
+			{% if term.name is defined %}
+				<div>{{ term.name }}</div>
+			{% else %}
+				<div>{{ term.data | raw }}</div>
+			{% endif %}
+		{% endfor %}
+	{% endfor %}
+{% endblock %}

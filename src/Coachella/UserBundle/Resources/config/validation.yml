@@ -1,0 +1,7 @@
+Acme\BlogBundle\Entity\Artists:
+    properties:
+        name:
+            - NotBlank: ~
+        description:
+            - NotBlank: ~
+        

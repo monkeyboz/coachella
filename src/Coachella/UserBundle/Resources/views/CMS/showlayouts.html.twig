@@ -1,0 +1,8 @@
+{% for item in content %}
+	<div style="padding: 10px; border-bottom: 1px solid #efefef;">
+		<a href="{{ path('_getLayout', {'id':item.id}) }}">{{ item.name }}</a>
+		<div style="float: right;">
+			<a href="">Edit</a> | <a href="">Delete</a>
+		</div>
+	</div>
+{% endfor %}

@@ -1,0 +1,20 @@
+.mylineupOptions{
+	font-size: 10px;
+	margin-top: 10px;
+	background: #fff;
+	padding: 10px;
+}
+
+.mylineupOptions a{
+	display: block;
+	padding: 3px;
+	background: #000;
+	color: #fff;
+	float: right;
+	text-decoration: none;
+	margin-right: 3px;
+}
+
+.mylineupOptions div{
+	float: left;
+}

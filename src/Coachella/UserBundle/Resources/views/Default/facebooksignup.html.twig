@@ -1,0 +1,34 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block body %}
+	<div id="fb-root"></div>
+	<script src="http://connect.facebook.net/en_US/all.js"></script>
+	<script>
+		FB.init({ 
+			appId:'193167388116', cookie:true, 
+			status:true, xfbml:true 
+		});
+		FB.Event.subscribe('auth.login', function(response) {
+	        window.location.reload();
+	    });
+	</script>
+	{% if user %}
+		Please complete this signup to create a new Coachella account.
+		<form action="{{ path('_signup') }}" method="post" {{ form_enctype(form) }}>
+		    {{ form_widget(form) }}
+		    <input type="submit" />
+		</form>
+	{% else %}
+		<fb:login-button>Login with Facebook</fb:login-button>
+		<form action="{{ path('_signup') }}" method="post" {{ form_enctype(form) }}>
+		    {{ form_widget(form) }}
+		    <input type="submit" />
+		</form>
+	{% endif %}
+{% endblock %}

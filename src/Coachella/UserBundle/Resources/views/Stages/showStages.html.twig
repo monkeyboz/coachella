@@ -1,0 +1,70 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation  %}
+	{% render 'CoachellaUserBundle:Default:login' %}
+{% endblock %}
+
+{% block body %}
+	<h2>Show Stages</h2>
+	<div style="float: right; clear: both;"><a href="{{ path('_createStage') }}">Create Stage</a></div>
+	<div style="clear: both;"></div>
+	<ul id="showHolder"  style="margin: 0px; padding: 0px; margin-top: 10px;">
+	{% for id,item in stages %}
+	<li class="show" ref="{{ id }}">
+			{{ item.name }}
+			<div style="float: right; font-size: 10px;">{% include 'CoachellaUserBundle:Default:options.html.twig' with {'options':item.options} %}</div>
+			<ul style="margin: 0px; padding: 0px; margin-top: 10px;">
+			{% for art in item.artists %}
+			<li class="artist" ref="{{ art.id }}">
+				{{ art.name }}
+				<div style="float: right; font-size: 10px;">{% include 'CoachellaUserBundle:Default:options.html.twig' with {'options':art.options} %}</div>
+			</li>
+			{% endfor %}
+			</ul>
+	</li>
+	{% endfor %}
+	</ul>
+	<div style="clear: both;"></div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('bundles/coachella/js/jquery-1.6.2.js') }}"></script>
+	<script src="{{ asset('bundles/coachella/js/admin/buttonfunctions.js') }}"></script>
+<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.core.js') }}"></script>
+<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.widget.js') }}"></script>
+<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.mouse.js') }}"></script>
+<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.draggable.js') }}"></script>
+<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.droppable.js') }}"></script>
+<script src="{{ asset('bundles/coachella/js/development-bundle/ui/jquery.ui.sortable.js') }}"></script>
+<script>
+	$('.artist').draggable({
+		revert: 'invalid',
+	});
+	$('#showHolder').sortable().disableSelection();
+	$('.show').droppable({ 
+		accept: '.artist',
+		drop: function(event, ui){
+			ui.draggable.fadeOut();
+			$(this).append('<div class="artist" ref="'+ui.draggable.attr('ref')+'">'+ui.draggable.html()+"</div>");
+			$('.artist').draggable({
+				revert: 'invalid',
+			});
+			var id = ui.draggable.attr('ref');
+			var stage_id = $(this).attr('ref');
+			$.ajax({
+				url:'/app_dev.php/updateStage/'+stage_id+'/'+id,
+				type: 'POST',
+				success: function(html){
+					
+				}
+			})
+		}
+	});
+</script>
+{% endblock %}

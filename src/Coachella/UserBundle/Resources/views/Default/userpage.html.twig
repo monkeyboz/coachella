@@ -1,0 +1,20 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% render 'CoachellaUserBundle:Default:login' %}
+{% endblock %}
+
+{% block body %}
+	<h2>Welcome back {{ user.username }}</h2>
+	<div style="clear: both;">
+		<a href="{{ path('_showStages') }}">Show Stages</a>
+		<a href="{{ path('_createMylineup', {'id':user.id}) }}">Create Lineup</a>	
+	</div>
+	{% render "CoachellaUserBundle:MyLineup:mylineup" with { 'id':user.id, 'startdate':mylineup.startdate, 'enddate':mylineup.enddate } %}
+{% endblock %}

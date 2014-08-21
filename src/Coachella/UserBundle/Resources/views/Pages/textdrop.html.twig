@@ -1,0 +1,24 @@
+<form method="POST" class="text{{ id }}">
+	<textarea name="form[data]" class="data{{ id }}" style="width: 100%; border: none;">{{ data }}</textarea>
+	<input type="submit" value="Submit" name="submit"/>
+</form>
+<script type="text/javascript" src="{{ asset('bundles/coachella/js/ckeditor/ckeditor.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coachella/js/ckeditor/adapters/jquery.js') }}"></script>
+<script>
+	$('.data{{ id }}').ckeditor();
+	var currStyle = 'Content';
+	$('input[name=submit]').click(function(){
+		var id = {{ id }};
+		$.ajax({
+			url: "{{ path('_textDrop', {'id':id}) }}",
+			data: 'data='+$('textarea.data{{ id }}').val()+'&id='+id+'&style='+currStyle,
+			type: 'POST',
+			success: function(html){
+				var parent = $('.text{{ id }}').parent();
+				parent.html(html);
+				parent.append('<div class="add">CoachellaUserBundle|CMS|showText^id,{{ id }}</div>');
+			}
+		})
+		return false;
+	})
+</script>

@@ -1,0 +1,3 @@
+{% for i,item in options %}
+	<a href="{{ path(item.link, {'id':item.id}) }}" class="{{ i }}">{{ i }}</a>
+{% endfor %}

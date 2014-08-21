@@ -1,0 +1,19 @@
+{% extends 'CoachellaUserBundle::base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/style.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block navigation %}
+	{% include 'CoachellaUserBundle:Default:usernav.html.twig' %}
+	<div class="clear"></div>
+{% endblock %}
+
+{% block body %}
+	<h2>Create MyLineup</h2>
+	{% render "CoachellaUserBundle:Artists:showArtistsMylineup" with {'date':date} %}
+	
+	{% render "CoachellaUserBundle:Mylineup:mylineup" with { 'id':user.id, 'date':date } %}
+{% endblock %}

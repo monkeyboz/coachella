@@ -1,0 +1,26 @@
+{% for key,item in mylineup %}
+<div>
+	<div style="padding: 10px;">{{ key }}</div>
+	{% for artist in item %}
+	<div class="artist" style="border-bottom: #fff solid 4px; width: 300px; float: left; margin-right: 10px;">
+		<div style="float: left; width: 100px; height: 100px; overflow: hidden; margin-right: 10px; border: #fff solid 5px;"><img src="/uploads/documents/{{ artist.id }}.jpg" style="width: 100%;"/></div>
+		<h2>{{ artist.name }}</h2>
+		<div style="font-size: 10px;">{{ artist.description }}</div>
+		<div style="clear: both;"></div>
+		<div class="mylineupOptions">
+			<div>
+				{{ artist.starttime | date('h:i') }}
+				<div class="clear"></div>
+			</div>
+			<a href="{{ path('_removeMylineup', {'id':artist.id}) }}">remove</a> <a href="{{ path('_artistPage', {'id':artist.id}) }}">info</a>
+			<div class="clear"></div>
+		</div>
+	</div>
+	{% endfor %}
+	<div style="clear: both;"></div>
+</div>
+{% endfor %}
+
+{% block stylesheets %}
+	<link href="{{ asset('bundles/coachella/css/mylineup.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
